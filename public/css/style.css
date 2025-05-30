@@ -3,6 +3,7 @@ body{
     display: flex;
     flex-direction: column;
     min-width: 100vh;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container{
@@ -21,8 +22,157 @@ body{
 }
 
 .nav-link{
-    color: #222222 !important;
+    color: #222222 ;
 }
+
+/* Toggle Dark Mode Theme */
+.dark-mode {
+    background-color: #121212;
+    color: #f1f1f1;
+}
+
+.dark-mode a {
+    color: #90caf9;
+}
+
+.dark-mode .navbar,
+.dark-mode .f-info {
+    background-color: #1e1e1e;
+}
+
+.dark-mode .card {
+    background-color: #2c2c2c;
+    color: #fff;
+}
+
+.dark-mode input,
+.dark-mode textarea,
+.dark-mode select {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+}
+
+/* === DARK MODE STYLES === */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+/* Navbar */
+body.dark-mode .navbar {
+    background-color: #1e1e1e;
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .nav-link {
+    color: #e0e0e0 !important;
+}
+
+/* Footer */
+body.dark-mode .f-info {
+    background-color: #1e1e1e;
+    color: #e0e0e0;
+}
+
+body.dark-mode .f-info-links a {
+    color: #e0e0e0;
+}
+
+body.dark-mode .f-info-links a:hover {
+    text-decoration: underline;
+    color: #ffffff;
+}
+
+body.dark-mode .f-info-socials i {
+    color: #e0e0e0;
+}
+
+/* Toggle button appearance in dark mode */
+body.dark-mode #darkModeToggle {
+    background-color: #e0e0e0;
+    color: #121212;
+    border-color: #e0e0e0;
+}
+
+body.dark-mode #darkModeToggle:hover {
+    background-color: #ffffff;
+    color: #000;
+}
+
+/* Light mode placeholder - default behavior (optional) */
+input::placeholder,
+textarea::placeholder {
+    color: #6c757d; /* Bootstrap gray */
+}
+
+/* Dark mode placeholder */
+body.dark-mode input::placeholder,
+body.dark-mode textarea::placeholder {
+    color: #cccccc; /* Light gray for visibility on dark backgrounds */
+}
+
+/* Smooth transition */
+button,
+.btn {
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Dark mode - base button style */
+body.dark-mode button,
+body.dark-mode .btn {
+    background-color: #2a2a2a; /* Subtle dark gray */
+    color: #e0e0e0;
+    border: 1px solid #444;
+    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+}
+
+/* Hover - highlight with white text and lighter background */
+body.dark-mode button:hover,
+body.dark-mode .btn:hover {
+    background-color: #ffffff;
+    color: #121212;
+    border-color: #ffffff;
+}
+
+/* Success button (dark mode) */
+body.dark-mode .btn-success {
+    background-color: #388e3c; /* Muted green */
+    color: #e0e0e0;
+    border: none;
+}
+
+body.dark-mode .btn-success:hover {
+    background-color: #66bb6a; /* Bright green on hover */
+    color: #000;
+}
+
+/* Danger button (dark mode) */
+body.dark-mode .btn-danger {
+    background-color: #c62828; /* Muted red */
+    color: #e0e0e0;
+    border: none;
+}
+
+body.dark-mode .btn-danger:hover {
+    background-color: #ff5252; /* Bright red on hover */
+    color: #000;
+}
+
+/* Custom add/edit buttons */
+body.dark-mode .add-btn,
+body.dark-mode .edit-btn {
+    background-color: #b23c3c !important; /* Subtle warm red */
+    color: #f0f0f0;
+    border: none;
+}
+
+body.dark-mode .add-btn:hover,
+body.dark-mode .edit-btn:hover {
+    background-color: #ff6666 !important; /* Bright red on hover */
+    color: #000;
+}
+
 
 /* Footer */
 .f-info-links a{
@@ -56,9 +206,15 @@ body{
     flex-wrap: wrap;
     justify-content: center;
     align-items: space-evenly;
-    
-    bottom: 0;  
     width: 100%;
+}
+
+/* For footer on Signup and Login Page */
+.auth-wrapper {
+    min-height: calc(100vh - 8rem - 5rem); 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 /* Cards */
