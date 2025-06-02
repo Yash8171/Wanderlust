@@ -29,31 +29,92 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Left nav -->
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
       </div>
 
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex">
-          <input class="form-control me-2 search-inp" type="search" placeholder="Search Destinations">
-          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-        </form>
-      </div>
+      <!-- Centered search form -->
+      <form class="search-form" action="/listings" method="GET">
+        <input class="form-control" type="search" name="q" placeholder="Search Destinations" aria-label="Search">
 
+        <input class="form-control" type="number" name="minPrice" placeholder="Min Price" min="0">
+
+        <input class="form-control" type="number" name="maxPrice" placeholder="Max Price" min="0">
+
+        <select class="form-select" name="sort">
+          <option value="">Sort</option>
+          <option value="lowToHigh">Price: Low to High</option>
+          <option value="highToLow">Price: High to Low</option>
+        </select>
+
+        <button class="search-btn" type="submit">
+          <i class="fa-solid fa-magnifying-glass"></i> Search
+        </button>
+      </form>
+
+
+
+      <!-- Right nav -->
       <div class="navbar-nav ms-auto">
-        <button id="darkModeToggle" class="btn btn-outline-dark">
+        <button id="darkModeToggle" class="btn btn-outline-dark me-2">
           <i class="fa-solid fa-moon"></i>
         </button>
         <a class="nav-link" href="/listings/new">Airbnb your Home</a>
         <% if(!currUser) { %>
           <a class="nav-link" href="/signup"><b>Sign up</b></a>
           <a class="nav-link" href="/login"><b>Log in</b></a>
-          <% } %>
-            <% if(currUser) { %>
-              <a class="nav-link" href="/logout"><b>Log out</b></a>
-              <% } %>
+          <% } else { %>
+            <a class="nav-link" href="/logout"><b>Log out</b></a>
+            <% } %>
       </div>
     </div>
   </div>
 </nav>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const searchInput = document.getElementById("liveSearchInput");
+    const suggestionsBox = document.getElementById("searchSuggestions");
+
+    let timeout;
+
+    searchInput.addEventListener("input", () => {
+      const query = searchInput.value.trim();
+
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        if (query.length === 0) {
+          suggestionsBox.innerHTML = "";
+          return;
+        }
+
+        fetch(`/listings/search-live?q=${encodeURIComponent(query)}`)
+          .then(res => res.json())
+          .then(data => {
+            suggestionsBox.innerHTML = "";
+            if (data.length === 0) {
+              suggestionsBox.innerHTML = `<div class="list-group-item disabled">No results found</div>`;
+            } else {
+              data.forEach(listing => {
+                const item = document.createElement("a");
+                item.href = `/listings/${listing._id}`;
+                item.className = "list-group-item list-group-item-action";
+                item.textContent = `${listing.title} - ₹${listing.price}`;
+                suggestionsBox.appendChild(item);
+              });
+            }
+          });
+      }, 300);
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!document.getElementById("liveSearchForm").contains(e.target)) {
+        suggestionsBox.innerHTML = "";
+      }
+    });
+  });
+</script>

@@ -11,14 +11,34 @@ const upload = multer({ storage });
 router.route("/")
     .get(wrapAsync(listingController.index))
     .post(isLoggedIn, 
-    upload.single("listing[image]"),
-    validateListing,
-    wrapAsync(listingController.createListing)
- );
+          upload.single("listing[image]"),
+          validateListing,
+          wrapAsync(listingController.createListing));
+
     
 
 //New Route
 router.get("/new",isLoggedIn, listingController.renderNewForm);
+
+
+router.get("/", wrapAsync(async (req, res) => {
+  const { q } = req.query;
+  let listings;
+
+  if (q) {
+    const regex = new RegExp(q, "i");
+    listings = await Listing.find({ title: regex });
+
+    if (listings.length === 0) {
+      req.flash("error", `No results found for "${q}"`);
+    }
+  } else {
+    listings = await Listing.find({});
+  }
+
+  res.render("listings/index", { listings, searchQuery: q || "" });
+}));
+
 
 router.route("/:id")
     .get(wrapAsync(listingController.showListing))
@@ -34,5 +54,15 @@ router.get("/:id/edit",
     isLoggedIn, isOwner,
     wrapAsync(listingController.renderEditForm)
 );
+
+router.get("/search-live", wrapAsync(async (req, res) => {
+  const { q } = req.query;
+  if (!q) return res.json([]);
+
+  const regex = new RegExp(q, "i");
+  const listings = await Listing.find({ title: regex }).limit(5);
+  res.json(listings);
+}));
+
 
 module.exports = router;

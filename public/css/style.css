@@ -1,29 +1,153 @@
-body{
+body {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
     display: flex;
     flex-direction: column;
-    min-width: 100vh;
+    min-height: 100vh; /* Corrected from min-width */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-.container{
+.container {
     flex: 1;
 }
 
+/* Default Search button and Explore icon styles */
+.search-btn {
+  background-color: #fe424d;
+  color: #fff;
+  border-radius: 25px;
+  padding: 0 1rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-btn:hover {
+  background-color: #fe424d;
+  color: #fff;
+}
+
+.fa-compass {
+  color: #fe424d;
+  font-size: 2rem;
+  transition: color 0.3s ease;
+}
+
+.fa-compass:hover {
+  color: #fe424d;
+}
+
+/* Dark mode overrides */
+body.dark-mode .search-btn {
+  background-color: transparent;  /* Make it less dull */
+  color: #fe424d;                 /* Make it red in dark mode */
+  border: 1px solid #fe424d;      /* Optional: add border to stand out */
+}
+
+body.dark-mode .search-btn:hover {
+  background-color: #fe424d;
+  color: #fff;
+  border: none;
+}
+
+body.dark-mode .fa-compass {
+  color: #e0e0e0; /* lighter gray for dark mode */
+}
+
+body.dark-mode .fa-compass:hover {
+  color: #fe424d; /* red on hover */
+}
+
+/* Optional: nav-link Explore text color dark mode */
+body.dark-mode .nav-link {
+  color: #e0e0e0;
+}
+
+body.dark-mode .nav-link:hover {
+  color: #fe424d;
+}
+
+
 /* Navbar */
-.navbar{
+.navbar {
     height: 5rem;
     background-color: white;
 }
 
-.fa-compass{
+.fa-compass {
     color: #fe424d;
     font-size: 2rem;
 }
 
-.nav-link{
-    color: #222222 ;
+.nav-link {
+    color: #222222;
 }
+
+/* Navbar Search Form Container */
+.navbar .search-form {
+    max-width: 700px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+/* Search inputs styles */
+.navbar .search-form .form-control,
+.navbar .search-form .form-select {
+    margin-right: 0.5rem;
+    min-width: 100px;
+    max-width: 220px;
+}
+
+/* Specific input sizes */
+.navbar .search-form input[type="search"] {
+    min-width: 180px;
+    max-width: 220px;
+}
+
+.navbar .search-form input[type="number"] {
+    min-width: 100px;
+    max-width: 120px;
+}
+
+/* Sort select */
+.navbar .search-form select.form-select {
+    min-width: 130px;
+    max-width: 150px;
+}
+
+/* Search button styling */
+.navbar .search-btn,
+.btn.search-btn {
+    background-color: #fe424d;
+    color: #fff;
+    border-radius: 25px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    min-width: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    height: 38px;           /* Match Bootstrap input height */
+    line-height: 1;         /* Avoid extra vertical spacing */
+    margin: 0;              /* Remove default margins */
+    white-space: nowrap;
+}
+
+.navbar .search-btn:hover,
+.btn.search-btn:hover {
+    background-color: #fe424d;
+    color: #fff;
+}
+
+/* Space between icon and text in button */
+.navbar .search-btn i,
+.btn.search-btn i {
+    margin-right: 0.5rem;
+}
+
+
 
 /* Toggle Dark Mode Theme */
 .dark-mode {

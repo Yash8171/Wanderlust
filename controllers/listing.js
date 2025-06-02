@@ -3,10 +3,69 @@ const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
-module.exports.index = async (req,res)=>{
-    const allListings = await Listing.find({});  
-    res.render("listings/index.ejs",{allListings});
+module.exports.index = async (req, res) => {
+  try {
+    const { q, minPrice, maxPrice, sort } = req.query;
+    let filter = {};
+
+    // Search by title or destination (adjust field as per your schema)
+    if (q) {
+      filter.title = new RegExp(q, 'i');
+    }
+
+    // Price filters
+    if (minPrice) {
+      filter.price = filter.price || {};
+      filter.price.$gte = Number(minPrice);
+    }
+    if (maxPrice) {
+      filter.price = filter.price || {};
+      filter.price.$lte = Number(maxPrice);
+    }
+
+    // Sorting options
+    let sortOption = {};
+    if (sort === 'lowToHigh') {
+  sortOption.price = 1;
+} else if (sort === 'highToLow') {
+  sortOption.price = -1;
+}
+
+    // Query DB with filters and sorting
+    const listings = await Listing.find(filter).sort(sortOption);
+
+
+    // If filtered but no results found, redirect with flash
+    if ((q || minPrice || maxPrice) && listings.length === 0) {
+      let messageParts = [];
+      if (q) messageParts.push(`destination "${q}"`);
+      if (minPrice) messageParts.push(`min price ₹${minPrice}`);
+      if (maxPrice) messageParts.push(`max price ₹${maxPrice}`);
+
+      const message = `No results found for ${messageParts.join(', ')}`;
+      req.flash('warning', message);
+      return res.redirect('/listings');
+    }
+
+    // Render listings page with data and current filters/sort values
+    res.render('listings/index', {
+      listings,
+      searchQuery: q || '',
+      minPrice: minPrice || '',
+      maxPrice: maxPrice || '',
+      sort: sort || '',
+      flash: req.flash()
+    });
+
+  } catch (err) {
+    console.error('Error fetching listings:', err);
+    req.flash('danger', 'Something went wrong while fetching listings');
+    res.redirect('/listings');
+  }
 };
+
+
+
 
 module.exports.renderNewForm = (req,res)=>{
     res.render("listings/new.ejs");
