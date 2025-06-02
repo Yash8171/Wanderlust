@@ -19,26 +19,30 @@
 
   document.addEventListener("DOMContentLoaded", function () {
     const toggleBtn = document.getElementById("darkModeToggle");
+    const icon = toggleBtn?.querySelector("i");
     const body = document.body;
 
-    // Load saved mode
+    // Light mode is default, only enable dark if saved
     const savedMode = localStorage.getItem("darkMode");
-    if (savedMode === "enabled") {
+    const isDark = savedMode === "enabled";
+
+    if (isDark) {
         body.classList.add("dark-mode");
+        icon?.classList.replace("fa-moon", "fa-sun");
     }
 
-    // Toggle button
+    // Toggle button handler
     toggleBtn?.addEventListener("click", () => {
-    document.body.classList.toggle("dark-mode");
-    const icon = toggleBtn.querySelector("i");
+        const currentlyDark = body.classList.toggle("dark-mode");
+        localStorage.setItem("darkMode", currentlyDark ? "enabled" : "disabled");
 
-    const isDark = document.body.classList.contains("dark-mode");
-    localStorage.setItem("darkMode", isDark ? "enabled" : "disabled");
-    icon.classList.replace(isDark ? "fa-moon" : "fa-sun", isDark ? "fa-sun" : "fa-moon");
+        if (icon) {
+            icon.classList.replace(currentlyDark ? "fa-moon" : "fa-sun", currentlyDark ? "fa-sun" : "fa-moon");
+        }
 
-    // Update map style
-    if (typeof map !== "undefined") {
-        map.setStyle(isDark ? darkMapStyle : lightMapStyle);
-    }
-});
+        // Update map style if map exists
+        if (typeof map !== "undefined") {
+            map.setStyle(currentlyDark ? darkMapStyle : lightMapStyle);
+        }
+    });
 });
