@@ -3,7 +3,7 @@
     background-color: #fe424d;
     color: #fff;
     border-radius: 25px;
-    padding: 0 1rem 0 1rem;
+    padding: 0 1rem;
   }
 
   .search-btn:hover {
@@ -12,18 +12,32 @@
   }
 
   .search-btn i {
-    display: inline;
     margin-right: 0.5rem;
   }
 
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 3rem;
-    font-size: 1rem;
+  .search-form input,
+  .search-form select {
+    min-width: 150px;
   }
+
+  @media (max-width: 768px) {
+    .search-form {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .search-form input,
+    .search-form select,
+    .search-btn {
+      width: 100%;
+      margin-bottom: 0.5rem;
+    }
+
+  }
+  
 </style>
 
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar navbar-expand-md navbar-light border-bottom shadow-sm animated-navbar">
   <div class="container-fluid">
     <a class="navbar-brand" href="/listings"><i class="fa-regular fa-compass"></i></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
@@ -38,12 +52,15 @@
       </div>
 
       <!-- Centered search form -->
-      <form class="search-form" action="/listings" method="GET">
-        <input class="form-control" type="search" name="q" placeholder="Search Destinations" aria-label="Search">
+      <form id="liveSearchForm" class="search-form d-flex flex-nowrap align-items-center gap-2 mx-md-auto my-2"
+        action="/listings" method="GET" style="position: relative;">
 
-        <input class="form-control" type="number" name="minPrice" placeholder="Min Price" min="0">
+        <input class="form-control" id="liveSearchInput" type="search" name="q" placeholder="Search Destinations"
+          aria-label="Search" />
 
-        <input class="form-control" type="number" name="maxPrice" placeholder="Max Price" min="0">
+        <input class="form-control" type="number" name="minPrice" placeholder="Min Price" min="0" />
+
+        <input class="form-control" type="number" name="maxPrice" placeholder="Max Price" min="0" />
 
         <select class="form-select" name="sort">
           <option value="">Sort</option>
@@ -51,11 +68,12 @@
           <option value="highToLow">Price: High to Low</option>
         </select>
 
-        <button class="search-btn" type="submit">
-          <i class="fa-solid fa-magnifying-glass"></i> Search
+        <button class="search-btn btn d-flex align-items-center" type="submit">
+          <i class="fa-solid fa-magnifying-glass me-1"></i> Search
         </button>
-      </form>
 
+        <div id="searchSuggestions" class="list-group position-absolute top-100 start-0 mt-1 w-100 z-3"></div>
+      </form>
 
 
       <!-- Right nav -->
@@ -64,7 +82,7 @@
           <i class="fa-solid fa-moon"></i>
         </button>
         <a class="nav-link" href="/listings/new">Airbnb your Home</a>
-        <% if(!currUser) { %>
+        <% if (!currUser) { %>
           <a class="nav-link" href="/signup"><b>Sign up</b></a>
           <a class="nav-link" href="/login"><b>Log in</b></a>
           <% } else { %>
@@ -74,47 +92,3 @@
     </div>
   </div>
 </nav>
-
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const searchInput = document.getElementById("liveSearchInput");
-    const suggestionsBox = document.getElementById("searchSuggestions");
-
-    let timeout;
-
-    searchInput.addEventListener("input", () => {
-      const query = searchInput.value.trim();
-
-      clearTimeout(timeout);
-      timeout = setTimeout(() => {
-        if (query.length === 0) {
-          suggestionsBox.innerHTML = "";
-          return;
-        }
-
-        fetch(`/listings/search-live?q=${encodeURIComponent(query)}`)
-          .then(res => res.json())
-          .then(data => {
-            suggestionsBox.innerHTML = "";
-            if (data.length === 0) {
-              suggestionsBox.innerHTML = `<div class="list-group-item disabled">No results found</div>`;
-            } else {
-              data.forEach(listing => {
-                const item = document.createElement("a");
-                item.href = `/listings/${listing._id}`;
-                item.className = "list-group-item list-group-item-action";
-                item.textContent = `${listing.title} - ₹${listing.price}`;
-                suggestionsBox.appendChild(item);
-              });
-            }
-          });
-      }, 300);
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!document.getElementById("liveSearchForm").contains(e.target)) {
-        suggestionsBox.innerHTML = "";
-      }
-    });
-  });
-</script>

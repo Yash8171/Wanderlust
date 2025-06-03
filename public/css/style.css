@@ -1,407 +1,575 @@
-body {
-    font-family: 'Plus Jakarta Sans', sans-serif !important;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Corrected from min-width */
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
+    body {
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh; /* Corrected from min-width */
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-.container {
-    flex: 1;
-}
+    .container {
+        flex: 1;
+    }
 
-/* Default Search button and Explore icon styles */
-.search-btn {
-  background-color: #fe424d;
-  color: #fff;
-  border-radius: 25px;
-  padding: 0 1rem;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.search-btn:hover {
-  background-color: #fe424d;
-  color: #fff;
-}
-
-.fa-compass {
-  color: #fe424d;
-  font-size: 2rem;
-  transition: color 0.3s ease;
-}
-
-.fa-compass:hover {
-  color: #fe424d;
-}
-
-/* Dark mode overrides */
-body.dark-mode .search-btn {
-  background-color: transparent;  /* Make it less dull */
-  color: #fe424d;                 /* Make it red in dark mode */
-  border: 1px solid #fe424d;      /* Optional: add border to stand out */
-}
-
-body.dark-mode .search-btn:hover {
-  background-color: #fe424d;
-  color: #fff;
-  border: none;
-}
-
-body.dark-mode .fa-compass {
-  color: #e0e0e0; /* lighter gray for dark mode */
-}
-
-body.dark-mode .fa-compass:hover {
-  color: #fe424d; /* red on hover */
-}
-
-/* Optional: nav-link Explore text color dark mode */
-body.dark-mode .nav-link {
-  color: #e0e0e0;
-}
-
-body.dark-mode .nav-link:hover {
-  color: #fe424d;
-}
-
-
-/* Navbar */
-.navbar {
-    height: 5rem;
-    background-color: white;
-}
-
-.fa-compass {
-    color: #fe424d;
-    font-size: 2rem;
-}
-
-.nav-link {
-    color: #222222;
-}
-
-/* Navbar Search Form Container */
-.navbar .search-form {
-    max-width: 700px;
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-}
-
-/* Search inputs styles */
-.navbar .search-form .form-control,
-.navbar .search-form .form-select {
-    margin-right: 0.5rem;
-    min-width: 100px;
-    max-width: 220px;
-}
-
-/* Specific input sizes */
-.navbar .search-form input[type="search"] {
-    min-width: 180px;
-    max-width: 220px;
-}
-
-.navbar .search-form input[type="number"] {
-    min-width: 100px;
-    max-width: 120px;
-}
-
-/* Sort select */
-.navbar .search-form select.form-select {
-    min-width: 130px;
-    max-width: 150px;
-}
-
-/* Search button styling */
-.navbar .search-btn,
-.btn.search-btn {
+    /* Default Search button and Explore icon styles */
+    .search-btn {
     background-color: #fe424d;
     color: #fff;
     border-radius: 25px;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    min-width: 110px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    border: none;
-    height: 38px;           /* Match Bootstrap input height */
-    line-height: 1;         /* Avoid extra vertical spacing */
-    margin: 0;              /* Remove default margins */
-    white-space: nowrap;
-}
+    padding: 0 1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    }
 
-.navbar .search-btn:hover,
-.btn.search-btn:hover {
+    .search-btn:hover {
     background-color: #fe424d;
     color: #fff;
-}
+    }
 
-/* Space between icon and text in button */
-.navbar .search-btn i,
-.btn.search-btn i {
-    margin-right: 0.5rem;
-}
+    .fa-compass {
+    color: #fe424d;
+    font-size: 2rem;
+    transition: color 0.3s ease;
+    }
 
+    .fa-compass:hover {
+    color: #fe424d;
+    }
 
+    /* Dark mode overrides */
+    body.dark-mode .search-btn {
+    background-color: transparent;  /* Make it less dull */
+    color: #fe424d;                 /* Make it red in dark mode */
+    border: 1px solid #fe424d;      /* Optional: add border to stand out */
+    }
 
-/* Toggle Dark Mode Theme */
-.dark-mode {
-    background-color: #121212;
-    color: #f1f1f1;
-}
-
-.dark-mode a {
-    color: #90caf9;
-}
-
-.dark-mode .navbar,
-.dark-mode .f-info {
-    background-color: #1e1e1e;
-}
-
-.dark-mode .card {
-    background-color: #2c2c2c;
+    body.dark-mode .search-btn:hover {
+    background-color: #fe424d;
     color: #fff;
-}
-
-.dark-mode input,
-.dark-mode textarea,
-.dark-mode select {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-}
-
-/* === DARK MODE STYLES === */
-body.dark-mode {
-    background-color: #121212;
-    color: #e0e0e0;
-}
-
-/* Navbar */
-body.dark-mode .navbar {
-    background-color: #1e1e1e;
-    border-bottom: 1px solid #333;
-}
-
-body.dark-mode .nav-link {
-    color: #e0e0e0 !important;
-}
-
-/* Footer */
-body.dark-mode .f-info {
-    background-color: #1e1e1e;
-    color: #e0e0e0;
-}
-
-body.dark-mode .f-info-links a {
-    color: #e0e0e0;
-}
-
-body.dark-mode .f-info-links a:hover {
-    text-decoration: underline;
-    color: #ffffff;
-}
-
-body.dark-mode .f-info-socials i {
-    color: #e0e0e0;
-}
-
-/* Toggle button appearance in dark mode */
-body.dark-mode #darkModeToggle {
-    background-color: #e0e0e0;
-    color: #121212;
-    border-color: #e0e0e0;
-}
-
-body.dark-mode #darkModeToggle:hover {
-    background-color: #ffffff;
-    color: #000;
-}
-
-/* Light mode placeholder - default behavior (optional) */
-input::placeholder,
-textarea::placeholder {
-    color: #6c757d; /* Bootstrap gray */
-}
-
-/* Dark mode placeholder */
-body.dark-mode input::placeholder,
-body.dark-mode textarea::placeholder {
-    color: #cccccc; /* Light gray for visibility on dark backgrounds */
-}
-
-/* Smooth transition */
-button,
-.btn {
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-}
-
-/* Dark mode - base button style */
-body.dark-mode button,
-body.dark-mode .btn {
-    background-color: #2a2a2a; /* Subtle dark gray */
-    color: #e0e0e0;
-    border: 1px solid #444;
-    box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
-}
-
-/* Hover - highlight with white text and lighter background */
-body.dark-mode button:hover,
-body.dark-mode .btn:hover {
-    background-color: #ffffff;
-    color: #121212;
-    border-color: #ffffff;
-}
-
-/* Success button (dark mode) */
-body.dark-mode .btn-success {
-    background-color: #388e3c; /* Muted green */
-    color: #e0e0e0;
     border: none;
-}
+    }
 
-body.dark-mode .btn-success:hover {
-    background-color: #66bb6a; /* Bright green on hover */
-    color: #000;
-}
+    body.dark-mode .fa-compass {
+    color: #e0e0e0; /* lighter gray for dark mode */
+    }
 
-/* Danger button (dark mode) */
-body.dark-mode .btn-danger {
-    background-color: #c62828; /* Muted red */
+    body.dark-mode .fa-compass:hover {
+    color: #fe424d; /* red on hover */
+    }
+
+    /* Optional: nav-link Explore text color dark mode */
+    body.dark-mode .nav-link {
     color: #e0e0e0;
-    border: none;
+    }
+
+    body.dark-mode .nav-link:hover {
+    color: #fe424d;
+    }
+
+
+    /* Navbar */
+    .navbar {
+        height: 5rem;
+    }
+    @media (max-width: 768px) {
+    .navbar-collapse {
+        position: static !important;
+        background-color: #f8f9fa; /* default for light mode */
+    }
+
+    body.dark-mode .navbar-collapse {
+        background-color: #1e1e1e; /* override for dark mode */
+    }
+
+    .navbar-collapse.collapse {
+        display: none;
+    }
+
+    .navbar-collapse.show {
+        display: block;
+        margin-top: 0.5rem;
+    }
+
+    .show-card {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 0.5rem;  /* optional padding for some breathing space */
+    padding-right: 0.5rem;
+  }
+
+  /* Override any Bootstrap col-* or offset-* that limits width or pushes it */
+  .col-6.offset-3 {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+
+  .col-8.offset-3 {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+  /* Buttons container */
+  .show-card .button-group {
+    display: flex;
+    justify-content: space-between;  /* space between buttons */
+    flex-wrap: wrap;                  /* wrap if needed */
+    gap: 0.5rem;                     /* some gap between buttons */
+    padding: 0 0.5rem;               /* optional horizontal padding */
+  }
+
+  /* Buttons styling */
+  .show-card .button-group button {
+    flex: 1 1 auto;        /* buttons take equal space but can shrink */
+    min-width: 100px;      /* ensure buttons are not too narrow */
+    box-sizing: border-box;
+  }
+
+  /* Optional: adjust button font size or padding on mobile */
+  .show-card .button-group button {
+    font-size: 14px;
+    padding: 0.5rem 1rem;
+  }
+
 }
 
-body.dark-mode .btn-danger:hover {
-    background-color: #ff5252; /* Bright red on hover */
-    color: #000;
-}
+    #map {
+        height: 400px;
+    }
+    
+    @media (min-width: 1024px) {
+    #map {
+        height: 500px;
+    }
+    }
 
-/* Custom add/edit buttons */
-body.dark-mode .add-btn,
-body.dark-mode .edit-btn {
-    background-color: #b23c3c !important; /* Subtle warm red */
-    color: #f0f0f0;
-    border: none;
-}
+    .fa-compass {
+        color: #fe424d;
+        font-size: 2rem;
+    }
 
-body.dark-mode .add-btn:hover,
-body.dark-mode .edit-btn:hover {
-    background-color: #ff6666 !important; /* Bright red on hover */
-    color: #000;
-}
-
-
-/* Footer */
-.f-info-links a{
-    text-decoration: none;
-    color: #222222;
-}
-
-.f-info-links a:hover{
-    text-decoration: underline;
-}
-
-.f-info-links,
-.f-info-socials,
-.f-info-brand{
+    .nav-link {
+        color: #222222;
+    }
+    .animated-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    z-index: 1030;
+    transition: top 0.4s ease, opacity 0.4s ease;
+    }
+
+    .animated-navbar.hidden {
+    top: -5rem; /* same as .navbar height */
+    opacity: 0;
+    pointer-events: none;
+    }
+
+    /* Navbar Search Form Container */
+    .navbar .search-form {
+        max-width: 700px;
+        width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Search inputs styles */
+    .navbar .search-form .form-control,
+    .navbar .search-form .form-select {
+        margin-right: 0.5rem;
+        min-width: 100px;
+        max-width: 220px;
+    }
+
+    /* Specific input sizes */
+    .navbar .search-form input[type="search"] {
+        min-width: 180px;
+        max-width: 220px;
+    }
+
+    .navbar .search-form input[type="number"] {
+        min-width: 100px;
+        max-width: 120px;
+    }
+
+    /* Sort select */
+    .navbar .search-form select.form-select {
+        min-width: 130px;
+        max-width: 150px;
+    }
+
+    /* Search button styling */
+    .navbar .search-btn,
+    .btn.search-btn {
+        background-color: #fe424d;
+        color: #fff;
+        border-radius: 25px;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        min-width: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        border: none;
+        height: 38px;           /* Match Bootstrap input height */
+        line-height: 1;         /* Avoid extra vertical spacing */
+        margin: 0;              /* Remove default margins */
+        white-space: nowrap;
+    }
+
+    .navbar .search-btn:hover,
+    .btn.search-btn:hover {
+        background-color: #fe424d;
+        color: #fff;
+    }
+
+    /* Space between icon and text in button */
+    .navbar .search-btn i,
+    .btn.search-btn i {
+        margin-right: 0.5rem;
+    }
+
+
+
+    /* Toggle Dark Mode Theme */
+    .dark-mode {
+        background-color: #121212;
+        color: #f1f1f1;
+    }
+
+    .dark-mode a {
+        color: #90caf9;
+    }
+
+    .dark-mode .navbar,
+    .dark-mode .f-info {
+        background-color: #1e1e1e;
+    }
+
+    .dark-mode .card {
+        background-color: #2c2c2c;
+        color: #fff;
+    }
+
+    .dark-mode input,
+    .dark-mode textarea,
+    .dark-mode select {
+        background-color: #333;
+        color: #fff;
+        border: 1px solid #555;
+    }
+
+    /* === DARK MODE STYLES === */
+    body.dark-mode {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    /* Navbar */
+    body.dark-mode .navbar {
+        background-color: #1e1e1e;
+        border-bottom: 1px solid #333;
+    }
+
+    
+
+    /* Dark mode hamburger button */
+body.dark-mode .navbar-toggler {
+    background-color: #333;           /* Dark background */
+    border: 1px solid #555;           /* Optional: adds contrast */
+}
+
+
+
+
+
+    /* Footer */
+    body.dark-mode .f-info {
+        background-color: #1e1e1e;
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .f-info-links a {
+        color: #e0e0e0;
+    }
+
+    body.dark-mode .f-info-links a:hover {
+        text-decoration: underline;
+        color: #ffffff;
+    }
+
+    body.dark-mode .f-info-socials i {
+        color: #e0e0e0;
+    }
+
+    /* Toggle button appearance in dark mode */
+    body.dark-mode #darkModeToggle {
+        background-color: #e0e0e0;
+        color: #121212;
+        border-color: #e0e0e0;
+    }
+
+    body.dark-mode #darkModeToggle:hover {
+        background-color: #ffffff;
+        color: #000;
+    }
+
+    /* Light mode placeholder - default behavior (optional) */
+    input::placeholder,
+    textarea::placeholder {
+        color: #6c757d; /* Bootstrap gray */
+    }
+
+    /* Dark mode placeholder */
+    body.dark-mode input::placeholder,
+    body.dark-mode textarea::placeholder {
+        color: #cccccc; /* Light gray for visibility on dark backgrounds */
+    }
+
+    /* Smooth transition */
+    button,
+    .btn {
+        transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Dark mode - base button style */
+    body.dark-mode button,
+    body.dark-mode .btn {
+        background-color: #2a2a2a; /* Subtle dark gray */
+        color: #e0e0e0;
+        border: 1px solid #444;
+        box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Hover - highlight with white text and lighter background */
+    body.dark-mode button:hover,
+    body.dark-mode .btn:hover {
+        background-color: #ffffff;
+        color: #121212;
+        border-color: #ffffff;
+    }
+
+    /* Success button (dark mode) */
+    body.dark-mode .btn-success {
+        background-color: #388e3c; /* Muted green */
+        color: #e0e0e0;
+        border: none;
+    }
+
+    body.dark-mode .btn-success:hover {
+        background-color: #66bb6a; /* Bright green on hover */
+        color: #000;
+    }
+
+    /* Danger button (dark mode) */
+    body.dark-mode .btn-danger {
+        background-color: #c62828; /* Muted red */
+        color: #e0e0e0;
+        border: none;
+    }
+
+    body.dark-mode .btn-danger:hover {
+        background-color: #ff5252; /* Bright red on hover */
+        color: #000;
+    }
+
+    /* Custom add/edit buttons */
+    body.dark-mode .add-btn,
+    body.dark-mode .edit-btn {
+        background-color: #b23c3c !important; /* Subtle warm red */
+        color: #f0f0f0;
+        border: none;
+    }
+
+    body.dark-mode .add-btn:hover,
+    body.dark-mode .edit-btn:hover {
+        background-color: #ff6666 !important; /* Bright red on hover */
+        color: #000;
+    }
+
+
+    /* Footer */
+    .f-info-links a{
+        text-decoration: none;
+        color: #222222;
+    }
+
+    .f-info-links a:hover{
+        text-decoration: underline;
+    }
+
+    .f-info-links,
+    .f-info-socials,
+    .f-info-brand{
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .f-info-socials i{
+        font-size: 1.2rem;
+        margin-right: 1rem;
+    }
+
+    .f-info{
+        text-align: center;
+        height: 8rem;
+        background-color: #ebebeb;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: space-evenly;
+        width: 100%;
+    }
+
+    /* For footer on Signup and Login Page */
+    .auth-wrapper {
+        min-height: calc(100vh - 8rem - 5rem); 
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    /* Cards */
+    .listing-card{
+        border: none !important;
+        margin-bottom: 2rem;
+    }
+
+    .card-img-top{
+        border-radius: 1rem !important;
+        width: 100% !important;
+        object-fit: cover !important;
+    }
+
+    .card-body{
+        padding: 0 !important;
+    }
+
+    .card-text p{
+        font-weight: 400 !important;
+    }
+
+    .listing-link{
+        text-decoration: none;
+    }
+
+    /* Card Effect */
+    .card-img-overlay{
+        opacity: 0;
+    }
+
+    .card-img-overlay:hover{
+        opacity: 0.2;
+        background-color: white;
+    }
+
+    /* New Page */
+    .add-btn{
+        background-color: #fe424d !important;
+        border: none !important;
+    }
+
+    /* Edit Page */
+    .edit-btn{
+        background-color: #fe424d !important;
+        border: none !important;
+    } 
+
+    /* Show Page */
+    .show-img{
+        height: 30vh;
+    }
+    .btns{
+        display: flex;
+        justify-content: flex-start;
+        padding-left: 0;
+    }
+    /* Ensures image in form scales correctly on all devices */
+img.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Optional: Make edit button full-width on mobile */
+
+
+
+    .show-card{
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .footer-icon:hover {
+    color: #0d6efd !important; /* Bootstrap primary blue */
+    transform: scale(1.1);
+    transition: all 0.3s ease-in-out;
+}
+.underline-heading {
+    position: relative;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 15px;
+}
+
+.underline-heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px; /* Thickness of underline */
+    background-color: #fe424d; /* Bootstrap primary color */
+    width: 50%;
+    transition: width 0.3s ease-in-out;
+}
+
+.underline-heading:hover::after {
+    width: 100%;
+}
+
+    #scrollUpBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border: none;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.f-info-socials i{
-    font-size: 1.2rem;
-    margin-right: 1rem;
-}
-
-.f-info{
-    text-align: center;
-    height: 8rem;
-    background-color: #ebebeb;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: space-evenly;
-    width: 100%;
-}
-
-/* For footer on Signup and Login Page */
-.auth-wrapper {
-    min-height: calc(100vh - 8rem - 5rem); 
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-/* Cards */
-.listing-card{
-    border: none !important;
-    margin-bottom: 2rem;
-}
-
-.card-img-top{
-    border-radius: 1rem !important;
-    width: 100% !important;
-    object-fit: cover !important;
-}
-
-.card-body{
-    padding: 0 !important;
-}
-
-.card-text p{
-    font-weight: 400 !important;
-}
-
-.listing-link{
-    text-decoration: none;
-}
-
-/* Card Effect */
-.card-img-overlay{
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateY(80px); /* hidden initially */
     opacity: 0;
-}
+    z-index: 999;
+    padding: 0;
+    }
 
-.card-img-overlay:hover{
-    opacity: 0.2;
-    background-color: white;
-}
+    #scrollUpBtn.show {
+    transform: translateY(0); /* slide up */
+    opacity: 1;
+    }
 
-/* New Page */
-.add-btn{
-    background-color: #fe424d !important;
-    border: none !important;
-}
+    #scrollUpBtn svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    }
 
-/* Edit Page */
-.edit-btn{
-    background-color: #fe424d !important;
-    border: none !important;
-} 
+    #scrollUpBtn i {
+    font-size: 18px;
+    color: #fe424d;
+    position: relative;
+    z-index: 1;
+    }
 
-/* Show Page */
-.show-img{
-    height: 30vh;
-}
-.btns{
-    display: flex;
-}
-
-.show-card{
-    padding-left: 0;
-    padding-right: 0;
-}
-
-/* Map */
-#map { 
-    height: 400px;
-    width: 80vh; 
-}
+    /* Map */
+    #map { 
+        width: 100%;
+    height: 300px; /* or use min-height, or vh for full-screen */
+    border-radius: 10px;
+    }
