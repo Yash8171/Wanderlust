@@ -33,12 +33,12 @@ main()
         console.log(err);
     });
 
-// async function main(){
-//     await mongoose.connect(dbUrl);
-// }
-async function main(){
-    await mongoose.connect(MONGO_URL);
+async function main(){ 
+    await mongoose.connect(dbUrl);
 }
+// async function main(){
+//     await mongoose.connect(MONGO_URL);
+// }
 
 app.set("view engine","ejs");
 app.set("views", path.join(__dirname,"views"));
