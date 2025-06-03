@@ -24,14 +24,13 @@
 <body>
 
   <!-- ✅ NO need to pass currUser manually here -->
-  <%- include("../includes/navbar.ejs") %>
+  <%- include("../includes/navbar") %>
 
   <div class="container-fluid container-md mt-2">
-    <%- include("../includes/flash.ejs") %>
+    <%- include("../includes/flash") %>
     <%- body %>
   </div>
-
-  <%- include("../includes/footer.ejs") %>
+  <%- include("../includes/footer") %>
 
   <!-- Scroll Up Button -->
   <button id="scrollUpBtn" aria-label="Scroll to top" title="Scroll to top">
