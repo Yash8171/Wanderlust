@@ -2,7 +2,8 @@
         font-family: 'Plus Jakarta Sans', sans-serif !important;
         display: flex;
         flex-direction: column;
-        min-height: 100vh; /* Corrected from min-width */
+        min-height: 100vh;
+        /* Corrected from min-width */
         transition: background-color 0.3s ease, color 0.3s ease;
     }
 
@@ -12,56 +13,66 @@
 
     /* Default Search button and Explore icon styles */
     .search-btn {
-    background-color: #fe424d;
-    color: #fff;
-    border-radius: 25px;
-    padding: 0 1rem;
-    transition: background-color 0.3s ease, color 0.3s ease;
+        background-color: #fe424d;
+        color: #fff;
+        border-radius: 25px;
+        padding: 0 1rem;
+        transition: background-color 0.3s ease, color 0.3s ease;
     }
 
-    .search-btn:hover {
-    background-color: #fe424d;
-    color: #fff;
+    .search-btn:hover,
+    .navbar .search-btn:hover,
+    .btn.search-btn:hover {
+        background-color: #fe424d;
+        color: #fff;
+        box-shadow: 0 0 10px 3px rgba(254, 66, 77, 0.6);
+        transform: translateY(-2px);
+        /* subtle lift */
     }
 
     .fa-compass {
-    color: #fe424d;
-    font-size: 2rem;
-    transition: color 0.3s ease;
+        color: #fe424d;
+        font-size: 2rem;
+        transition: color 0.3s ease;
     }
 
     .fa-compass:hover {
-    color: #fe424d;
+        color: #fe424d;
     }
 
     /* Dark mode overrides */
     body.dark-mode .search-btn {
-    background-color: transparent;  /* Make it less dull */
-    color: #fe424d;                 /* Make it red in dark mode */
-    border: 1px solid #fe424d;      /* Optional: add border to stand out */
+        background-color: transparent;
+        /* Make it less dull */
+        color: #fe424d;
+        /* Make it red in dark mode */
+        border: 1px solid #fe424d;
+        /* Optional: add border to stand out */
     }
 
     body.dark-mode .search-btn:hover {
-    background-color: #fe424d;
-    color: #fff;
-    border: none;
+        background-color: #fe424d;
+        color: #fff;
+        border: none;
     }
 
     body.dark-mode .fa-compass {
-    color: #e0e0e0; /* lighter gray for dark mode */
+        color: #e0e0e0;
+        /* lighter gray for dark mode */
     }
 
     body.dark-mode .fa-compass:hover {
-    color: #fe424d; /* red on hover */
+        color: #fe424d;
+        /* red on hover */
     }
 
     /* Optional: nav-link Explore text color dark mode */
     body.dark-mode .nav-link {
-    color: #e0e0e0;
+        color: #e0e0e0;
     }
 
     body.dark-mode .nav-link:hover {
-    color: #fe424d;
+        color: #fe424d;
     }
 
 
@@ -69,75 +80,91 @@
     .navbar {
         height: 5rem;
     }
-    @media (max-width: 768px) {
+
+    .navbar,
     .navbar-collapse {
-        position: static !important;
-        background-color: #f8f9fa; /* default for light mode */
+        transition: background-color 0.3s ease;
     }
 
-    body.dark-mode .navbar-collapse {
-        background-color: #1e1e1e; /* override for dark mode */
+    @media (max-width: 768px) {
+        .navbar-collapse {
+            position: static !important;
+            background-color: #f8f9fa;
+            /* default for light mode */
+        }
+
+        body.dark-mode .navbar-collapse {
+            background-color: #1e1e1e;
+            /* override for dark mode */
+        }
+
+        .navbar-collapse.collapse {
+            display: none;
+        }
+
+        .navbar-collapse.show {
+            display: block;
+            margin-top: 0.5rem;
+        }
+
+        .show-card {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            padding-left: 0.5rem;
+            /* optional padding for some breathing space */
+            padding-right: 0.5rem;
+        }
+
+        /* Override any Bootstrap col-* or offset-* that limits width or pushes it */
+        .col-6.offset-3 {
+            margin-left: 0 !important;
+            width: 100% !important;
+        }
+
+        .col-8.offset-3 {
+            margin-left: 0 !important;
+            width: 100% !important;
+        }
+
+        /* Buttons container */
+        .show-card .button-group {
+            display: flex;
+            justify-content: space-between;
+            /* space between buttons */
+            flex-wrap: wrap;
+            /* wrap if needed */
+            gap: 0.5rem;
+            /* some gap between buttons */
+            padding: 0 0.5rem;
+            /* optional horizontal padding */
+        }
+
+        /* Buttons styling */
+        .show-card .button-group button {
+            flex: 1 1 auto;
+            /* buttons take equal space but can shrink */
+            min-width: 100px;
+            /* ensure buttons are not too narrow */
+            box-sizing: border-box;
+        }
+
+        /* Optional: adjust button font size or padding on mobile */
+        .show-card .button-group button {
+            font-size: 14px;
+            padding: 0.5rem 1rem;
+        }
+
     }
-
-    .navbar-collapse.collapse {
-        display: none;
-    }
-
-    .navbar-collapse.show {
-        display: block;
-        margin-top: 0.5rem;
-    }
-
-    .show-card {
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    padding-left: 0.5rem;  /* optional padding for some breathing space */
-    padding-right: 0.5rem;
-  }
-
-  /* Override any Bootstrap col-* or offset-* that limits width or pushes it */
-  .col-6.offset-3 {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
-
-  .col-8.offset-3 {
-    margin-left: 0 !important;
-    width: 100% !important;
-  }
-  /* Buttons container */
-  .show-card .button-group {
-    display: flex;
-    justify-content: space-between;  /* space between buttons */
-    flex-wrap: wrap;                  /* wrap if needed */
-    gap: 0.5rem;                     /* some gap between buttons */
-    padding: 0 0.5rem;               /* optional horizontal padding */
-  }
-
-  /* Buttons styling */
-  .show-card .button-group button {
-    flex: 1 1 auto;        /* buttons take equal space but can shrink */
-    min-width: 100px;      /* ensure buttons are not too narrow */
-    box-sizing: border-box;
-  }
-
-  /* Optional: adjust button font size or padding on mobile */
-  .show-card .button-group button {
-    font-size: 14px;
-    padding: 0.5rem 1rem;
-  }
-
-}
 
     #map {
         height: 400px;
     }
-    
+
     @media (min-width: 1024px) {
-    #map {
-        height: 500px;
-    }
+        #map {
+            height: 500px;
+        }
     }
 
     .fa-compass {
@@ -148,19 +175,21 @@
     .nav-link {
         color: #222222;
     }
+
     .animated-navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1030;
-    transition: top 0.4s ease, opacity 0.4s ease;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1030;
+        transition: top 0.4s ease, opacity 0.4s ease;
     }
 
     .animated-navbar.hidden {
-    top: -5rem; /* same as .navbar height */
-    opacity: 0;
-    pointer-events: none;
+        top: -5rem;
+        /* same as .navbar height */
+        opacity: 0;
+        pointer-events: none;
     }
 
     /* Navbar Search Form Container */
@@ -212,9 +241,12 @@
         justify-content: center;
         cursor: pointer;
         border: none;
-        height: 38px;           /* Match Bootstrap input height */
-        line-height: 1;         /* Avoid extra vertical spacing */
-        margin: 0;              /* Remove default margins */
+        height: 38px;
+        /* Match Bootstrap input height */
+        line-height: 1;
+        /* Avoid extra vertical spacing */
+        margin: 0;
+        /* Remove default margins */
         white-space: nowrap;
     }
 
@@ -272,14 +304,63 @@
         border-bottom: 1px solid #333;
     }
 
-    
+
 
     /* Dark mode hamburger button */
-body.dark-mode .navbar-toggler {
-    background-color: #333;           /* Dark background */
-    border: 1px solid #555;           /* Optional: adds contrast */
-}
+    body.dark-mode .navbar-toggler {
+        background-color: #333;
+        /* Dark background */
+        border: 1px solid #555;
+        /* Optional: adds contrast */
+    }
 
+    /* Default: keep it as is */
+    .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba%280, 0, 0, 0.5%29' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Dark Mode: override to use white lines */
+    body.dark-mode .navbar-toggler-icon {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+    }
+
+    /* Default navbar-toggler (no border) */
+    .navbar-toggler {
+        border: none;
+        outline: none;
+    }
+
+    /* When dark mode is enabled AND toggler is expanded (open), add white border */
+    body.dark-mode .navbar-toggler[aria-expanded="true"] {
+        border: 1px solid white;
+        border-radius: 4px;
+        padding: 6px;
+        /* Optional: adds spacing inside the border */
+        box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
+        /* Optional: subtle glow */
+    }
+
+    .navbar-toggler {
+        transition: border 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Add border to the expanded navbar only in dark mode */
+    body.dark-mode .navbar-collapse.show {
+        border: 1px solid white;
+        border-radius: 6px;
+        padding: 0.5rem;
+        margin-top: 0.5rem;
+        background-color: #222;
+        /* optional: overrides white background */
+    }
+
+    .navbar-collapse {
+        transition: border 0.3s ease, background-color 0.3s ease;
+    }
+
+    body.dark-mode .navbar {
+        background-color: #111 !important;
+    }
 
 
 
@@ -318,13 +399,15 @@ body.dark-mode .navbar-toggler {
     /* Light mode placeholder - default behavior (optional) */
     input::placeholder,
     textarea::placeholder {
-        color: #6c757d; /* Bootstrap gray */
+        color: #6c757d;
+        /* Bootstrap gray */
     }
 
     /* Dark mode placeholder */
     body.dark-mode input::placeholder,
     body.dark-mode textarea::placeholder {
-        color: #cccccc; /* Light gray for visibility on dark backgrounds */
+        color: #cccccc;
+        /* Light gray for visibility on dark backgrounds */
     }
 
     /* Smooth transition */
@@ -336,7 +419,8 @@ body.dark-mode .navbar-toggler {
     /* Dark mode - base button style */
     body.dark-mode button,
     body.dark-mode .btn {
-        background-color: #2a2a2a; /* Subtle dark gray */
+        background-color: #2a2a2a;
+        /* Subtle dark gray */
         color: #e0e0e0;
         border: 1px solid #444;
         box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
@@ -352,68 +436,74 @@ body.dark-mode .navbar-toggler {
 
     /* Success button (dark mode) */
     body.dark-mode .btn-success {
-        background-color: #388e3c; /* Muted green */
+        background-color: #388e3c;
+        /* Muted green */
         color: #e0e0e0;
         border: none;
     }
 
     body.dark-mode .btn-success:hover {
-        background-color: #66bb6a; /* Bright green on hover */
+        background-color: #66bb6a;
+        /* Bright green on hover */
         color: #000;
     }
 
     /* Danger button (dark mode) */
     body.dark-mode .btn-danger {
-        background-color: #c62828; /* Muted red */
+        background-color: #c62828;
+        /* Muted red */
         color: #e0e0e0;
         border: none;
     }
 
     body.dark-mode .btn-danger:hover {
-        background-color: #ff5252; /* Bright red on hover */
+        background-color: #ff5252;
+        /* Bright red on hover */
         color: #000;
     }
 
     /* Custom add/edit buttons */
     body.dark-mode .add-btn,
     body.dark-mode .edit-btn {
-        background-color: #b23c3c !important; /* Subtle warm red */
+        background-color: #b23c3c !important;
+        /* Subtle warm red */
         color: #f0f0f0;
         border: none;
     }
 
     body.dark-mode .add-btn:hover,
     body.dark-mode .edit-btn:hover {
-        background-color: #ff6666 !important; /* Bright red on hover */
+        background-color: #ff6666 !important;
+        /* Bright red on hover */
         color: #000;
     }
 
 
     /* Footer */
-    .f-info-links a{
+    .f-info-links a {
         text-decoration: none;
         color: #222222;
     }
 
-    .f-info-links a:hover{
+    .f-info-links a:hover {
         text-decoration: underline;
     }
 
     .f-info-links,
     .f-info-socials,
-    .f-info-brand{
+    .f-info-brand {
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .f-info-socials i{
+    .f-info-socials i {
         font-size: 1.2rem;
         margin-right: 1rem;
     }
 
-    .f-info{
+    .f-info {
         text-align: center;
         height: 8rem;
         background-color: #ebebeb;
@@ -426,150 +516,160 @@ body.dark-mode .navbar-toggler {
 
     /* For footer on Signup and Login Page */
     .auth-wrapper {
-        min-height: calc(100vh - 8rem - 5rem); 
+        min-height: calc(100vh - 8rem - 5rem);
         display: flex;
         flex-direction: column;
         justify-content: center;
     }
 
     /* Cards */
-    .listing-card{
+    .listing-card {
         border: none !important;
         margin-bottom: 2rem;
     }
 
-    .card-img-top{
+    .card-img-top {
         border-radius: 1rem !important;
         width: 100% !important;
         object-fit: cover !important;
     }
 
-    .card-body{
+    .card-body {
         padding: 0 !important;
     }
 
-    .card-text p{
+    .card-text p {
         font-weight: 400 !important;
     }
 
-    .listing-link{
+    .listing-link {
         text-decoration: none;
     }
 
     /* Card Effect */
-    .card-img-overlay{
+    .card-img-overlay {
         opacity: 0;
     }
 
-    .card-img-overlay:hover{
+    .card-img-overlay:hover {
         opacity: 0.2;
         background-color: white;
     }
 
     /* New Page */
-    .add-btn{
+    .add-btn {
         background-color: #fe424d !important;
         border: none !important;
     }
 
     /* Edit Page */
-    .edit-btn{
+    .edit-btn {
         background-color: #fe424d !important;
         border: none !important;
-    } 
+    }
 
     /* Show Page */
-    .show-img{
+    .show-img {
         height: 30vh;
     }
-    .btns{
+
+    .btns {
         display: flex;
         justify-content: flex-start;
         padding-left: 0;
     }
+
     /* Ensures image in form scales correctly on all devices */
-img.img-fluid {
-    max-width: 100%;
-    height: auto;
-}
+    img.img-fluid {
+        max-width: 100%;
+        height: auto;
+    }
 
-/* Optional: Make edit button full-width on mobile */
+    /* Optional: Make edit button full-width on mobile */
 
 
 
-    .show-card{
+    .show-card {
         padding-left: 0;
         padding-right: 0;
     }
+
     .footer-icon:hover {
-    color: #0d6efd !important; /* Bootstrap primary blue */
-    transform: scale(1.1);
-    transition: all 0.3s ease-in-out;
-}
-.underline-heading {
-    position: relative;
-    display: inline-block;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
+        color: #0d6efd !important;
+        /* Bootstrap primary blue */
+        transform: scale(1.1);
+        transition: all 0.3s ease-in-out;
+    }
 
-.underline-heading::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 3px; /* Thickness of underline */
-    background-color: #fe424d; /* Bootstrap primary color */
-    width: 50%;
-    transition: width 0.3s ease-in-out;
-}
+    .underline-heading {
+        position: relative;
+        display: inline-block;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+    }
 
-.underline-heading:hover::after {
-    width: 100%;
-}
+    .underline-heading::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        /* Thickness of underline */
+        background-color: #fe424d;
+        /* Bootstrap primary color */
+        width: 50%;
+        transition: width 0.3s ease-in-out;
+    }
+
+    .underline-heading:hover::after {
+        width: 100%;
+    }
 
     #scrollUpBtn {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: white;
-    border: none;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: translateY(80px); /* hidden initially */
-    opacity: 0;
-    z-index: 999;
-    padding: 0;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        width: 50px;
+        height: 50px;
+        background: white;
+        border: none;
+        border-radius: 50%;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: translateY(80px);
+        /* hidden initially */
+        opacity: 0;
+        z-index: 999;
+        padding: 0;
     }
 
     #scrollUpBtn.show {
-    transform: translateY(0); /* slide up */
-    opacity: 1;
+        transform: translateY(0);
+        /* slide up */
+        opacity: 1;
     }
 
     #scrollUpBtn svg {
-    position: absolute;
-    top: 0;
-    left: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
     }
 
     #scrollUpBtn i {
-    font-size: 18px;
-    color: #fe424d;
-    position: relative;
-    z-index: 1;
+        font-size: 18px;
+        color: #fe424d;
+        position: relative;
+        z-index: 1;
     }
 
     /* Map */
-    #map { 
+    #map {
         width: 100%;
-    height: 300px; /* or use min-height, or vh for full-screen */
-    border-radius: 10px;
+        height: 300px;
+        /* or use min-height, or vh for full-screen */
+        border-radius: 10px;
     }

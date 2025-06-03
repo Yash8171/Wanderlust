@@ -42,10 +42,16 @@
     const toggler = document.querySelector(".navbar-toggler");
 
     toggler?.addEventListener("click", () => {
-      const isExpanded = toggler.getAttribute("aria-expanded") === "true";
-      nav.classList.toggle("bg-white", !isExpanded);
-      nav.classList.toggle("shadow-sm", !isExpanded);
-    });
+  const isExpanded = toggler.getAttribute("aria-expanded") === "true";
+  const isDarkMode = body.classList.contains("dark-mode");
+
+  // Only apply bg-white and shadow if NOT dark mode
+  if (!isDarkMode) {
+    nav.classList.toggle("bg-white", !isExpanded);
+    nav.classList.toggle("shadow-sm", !isExpanded);
+  }
+});
+
 
     // ====== Live Search ======
     const searchInput = document.getElementById("liveSearchInput");
