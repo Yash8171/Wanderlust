@@ -20,24 +20,20 @@ router.route("/")
 //New Route
 router.get("/new",isLoggedIn, listingController.renderNewForm);
 
-
-router.get("/", wrapAsync(async (req, res) => {
-  const { q } = req.query;
-  let listings;
-
-  if (q) {
-    const regex = new RegExp(q, "i");
-    listings = await Listing.find({ title: regex });
-
+// Your Listings (owned by current user)
+router.get("/my", isLoggedIn, async (req, res) => {
+  try {
+    const listings = await Listing.find({ owner: req.user._id });
     if (listings.length === 0) {
-      req.flash("error", `No results found for "${q}"`);
+      req.flash("warning", "You have not created any listing");
+      return res.redirect("/listings");
     }
-  } else {
-    listings = await Listing.find({});
+    res.render("listings/index", { listings });
+  } catch (err) {
+    req.flash("error", "Unable to fetch your listings.");
+    res.redirect("/listings");
   }
-
-  res.render("listings/index", { listings, searchQuery: q || "" });
-}));
+});
 
 
 router.route("/:id")

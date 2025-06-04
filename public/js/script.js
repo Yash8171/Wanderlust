@@ -148,5 +148,14 @@ const scrollBtn = document.getElementById("scrollUpBtn");
   window.addEventListener("scroll", updateScrollButton);
   updateScrollButton(); // Run on load
 
+  // Auto dismiss Bootstrap alerts after 4 seconds
+  setTimeout(() => {
+  const alertList = document.querySelectorAll('.alert');
+  alertList.forEach(alert => {
+    const bsAlert = bootstrap.Alert.getOrCreateInstance(alert);
+    bsAlert.close();
+    });
+  }, 4000);
+
   });
 
