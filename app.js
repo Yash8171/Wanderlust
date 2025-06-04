@@ -20,7 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const https = require("https");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -107,14 +107,25 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 
-app.get("/myip", async (req, res) => {
-  try {
-    const response = await fetch("https://api64.ipify.org?format=json");
-    const data = await response.json();
-    res.send(`🚀 Railway Public IP: ${data.ip}`);
-  } catch (err) {
+app.get("/myip", (req, res) => {
+  https.get("https://api64.ipify.org?format=json", (resp) => {
+    let data = "";
+
+    resp.on("data", (chunk) => {
+      data += chunk;
+    });
+
+    resp.on("end", () => {
+      try {
+        const json = JSON.parse(data);
+        res.send(`🚀 Railway Public IP: ${json.ip}`);
+      } catch (err) {
+        res.status(500).send("Error parsing IP response");
+      }
+    });
+  }).on("error", (err) => {
     res.status(500).send("Error fetching public IP: " + err.message);
-  }
+  });
 });
 
 app.get("/", (req, res) => {
