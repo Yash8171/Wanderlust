@@ -20,8 +20,6 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-const https = require("https");
-
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
 const dbUrl = process.env.ATLASDB_URL;
@@ -106,27 +104,6 @@ app.use((req, res, next)=>{
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
-
-app.get("/myip", (req, res) => {
-  https.get("https://api64.ipify.org?format=json", (resp) => {
-    let data = "";
-
-    resp.on("data", (chunk) => {
-      data += chunk;
-    });
-
-    resp.on("end", () => {
-      try {
-        const json = JSON.parse(data);
-        res.send(`🚀 Railway Public IP: ${json.ip}`);
-      } catch (err) {
-        res.status(500).send("Error parsing IP response");
-      }
-    });
-  }).on("error", (err) => {
-    res.status(500).send("Error fetching public IP: " + err.message);
-  });
-});
 
 app.get("/", (req, res) => {
   res.redirect("/listings");
