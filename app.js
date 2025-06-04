@@ -20,6 +20,7 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
+const fetch = require("node-fetch");
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 
@@ -55,7 +56,7 @@ const store = MongoStore.create({
     touchAfter: 24 * 3600,
 });
 
-store.on("error", () => {
+store.on("error", (err) => {
     console.log("ERROR in MONGO SESSION STORE", err);
 });
 
@@ -101,6 +102,17 @@ app.use((req, res, next)=>{
 //      let registeredUser = await User.register(fakeUser, "helloworld");
 //      res.send(registeredUser);
 //  });
+
+// Utility route to get public IP (for Railway static IP check)
+app.get("/myip", async (req, res) => {
+  try {
+    const response = await fetch("https://api64.ipify.org?format=json");
+    const data = await response.json();
+    res.send(`🚀 Railway Public IP: ${data.ip}`);
+  } catch (err) {
+    res.status(500).send("Error fetching public IP");
+  }
+});
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
